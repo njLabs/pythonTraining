@@ -1,4 +1,3 @@
-
 ############### import libraries/packages ###############
 from datetime import date, datetime
 import datetime
@@ -15,9 +14,9 @@ symbolCode = 'dmart'
 stockData = get_history(symbol=symbolCode, start=date(2019,3,1), end=date(currentDT.year,currentDT.month,currentDT.day))
 
 # print(stockData.columns)
-fetchData = stockData.tail()
+
 # print(stockData['Open'])
-print(fetchData)
+# print(stockData.tail())
 # stockData[['Close']].plot()
 
 ############### store historicla data into csv file ###############
@@ -28,9 +27,9 @@ fileName = prefix+symbolCode+suffix
 # print(fileName)
 
 with open(fileName, "w") as cFile:
-    for row in fetchData:
-        print(row)
-        stockWriter = csv.writer(cFile)
-        # stockWriter.writerow(stockData.columns)
-        stockWriter.writerows(row)
+    stockWriter = csv.writer(cFile)
+    stockWriter.writerow(stockData.columns)
+    for row in stockData.values:
+        print('here', row)
+        stockWriter.writerow(row)
 cFile.close()
